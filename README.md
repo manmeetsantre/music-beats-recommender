@@ -1,21 +1,24 @@
-# 🎵 MUSIC BEATS – Song Recommendation System
+# 🎵 MUSIC BEATS 🎵  
+## Content-Based Music Recommendation System
 
-A Content-Based Music Recommendation System built using:
+A production-ready content-based music recommendation system built using:
 
 - Python  
 - Scikit-learn (K-Nearest Neighbors)  
 - Streamlit  
 - Spotify API (Spotipy)  
-- Feature Scaling (StandardScaler)
+- Feature Scaling (StandardScaler)  
 
-This app recommends songs similar to a selected track based on audio features.
+This app recommends songs similar to a selected track using Spotify audio features and similarity modeling.
 
 ---
 
 ## 🚀 Live Demo
 
-👉 Deployed on Streamlit Cloud  
-(Add your live link here after deployment)
+👉 **Live App:**  
+https://music-beats.streamlit.app  
+
+Deployed on Streamlit Cloud.
 
 ---
 
@@ -25,18 +28,19 @@ This system:
 
 - Uses Spotify audio features (danceability, energy, tempo, etc.)
 - Applies feature scaling using StandardScaler
-- Uses K-Nearest Neighbors (KNN) for similarity search
+- Uses K-Nearest Neighbors (KNN) for similarity computation
 - Ranks recommendations by similarity + popularity
 - Provides optional genre filtering
 - Fetches album artwork and preview using Spotify API
-- Displays results via a clean Streamlit UI
+- Displays results through a clean Streamlit UI
+- Uses caching to optimize performance
 
 ---
 
 ## 📁 Project Structure
 
-
-Song_Recommender/
+```
+music-beats-recommender/
 │
 ├── app.py
 ├── recommender.py
@@ -44,141 +48,202 @@ Song_Recommender/
 ├── README.md
 │
 └── model/
-├── knn_model.pkl
-├── scaler.pkl
-└── songs_clean.pkl
-
+    ├── knn_model.pkl
+    ├── scaler.pkl
+    └── songs_clean.pkl
+```
 
 ---
 
-## ⚙️ Setup Instructions (Local)
+## ⚙️ Setup Instructions (Local Development)
 
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone <your-repo-link>
-cd Song_Recommender
-2️⃣ Ensure Python 3.12 is Installed
+git clone https://github.com/manmeetsantre/music-beats-recommender.git
+cd music-beats-recommender
+```
 
-Check version:
+---
 
+### 2️⃣ Ensure Python 3.12 Is Installed
+
+```bash
 py -3.12 --version
-3️⃣ Install Required Dependencies
+```
+
+---
+
+### 3️⃣ Install Required Dependencies
+
+```bash
 py -3.12 -m pip install -r requirements.txt
-4️⃣ Add Spotify API Credentials
+```
 
-Create:
+---
 
+### 4️⃣ Add Spotify API Credentials
+
+Create the following file:
+
+```
 .streamlit/secrets.toml
+```
 
 Add:
 
+```
 CLIENT_ID = "your_spotify_client_id"
 CLIENT_SECRET = "your_spotify_client_secret"
-5️⃣ Run the Application
+```
+
+⚠ **Do NOT commit this file to GitHub.**
+
+---
+
+### 5️⃣ Run the Application
+
+```bash
 py -3.12 -m streamlit run app.py
+```
 
-Open in browser:
+Open in your browser:
 
+```
 http://localhost:8501
-🔍 How It Works
-Step 1 – Load Saved Model
+```
+
+---
+
+## 🔍 How It Works
+
+### Step 1 – Load Saved Model
 
 The system loads:
 
-Trained KNN model
+- Trained KNN model  
+- StandardScaler  
+- Cleaned songs dataset  
 
-StandardScaler
+Using `@st.cache_resource` for improved performance.
 
-Cleaned songs dataset
+---
 
-Using @st.cache_resource to improve performance.
-
-Step 2 – Feature Processing
+### Step 2 – Feature Processing
 
 Selected audio features:
 
-danceability
+- danceability  
+- energy  
+- loudness  
+- speechiness  
+- acousticness  
+- instrumentalness  
+- liveness  
+- valence  
+- tempo  
 
-energy
+These are scaled using the saved StandardScaler before similarity computation.
 
-loudness
+---
 
-speechiness
-
-acousticness
-
-instrumentalness
-
-liveness
-
-valence
-
-tempo
-
-These are scaled using the saved StandardScaler.
-
-Step 3 – Song Matching
+### Step 3 – Song Matching
 
 User can input:
 
-Track Name
-OR
-
-Track ID
-
-System:
-
-Matches the track
-
-Retrieves its feature vector
-
-Finds nearest neighbors using KNN
-
-Step 4 – Filtering Logic
+- Track Name  
+- OR Track ID  
 
 The system:
 
-Removes the original song
+- Matches the selected song  
+- Retrieves its feature vector  
+- Finds nearest neighbors using KNN  
 
-Avoids recommending same artist
+---
 
-Applies optional genre filter
+### Step 4 – Filtering Logic
 
-Sorts by similarity score
+The system:
 
-Breaks ties using popularity
+- Removes the original song from results  
+- Avoids recommending songs from the same artist  
+- Applies optional genre filter  
+- Sorts by similarity score  
+- Breaks ties using popularity  
 
-Step 5 – UI Display
+---
 
-Each recommendation displays:
+### Step 5 – UI Display
 
-Album Artwork
+Each recommendation includes:
 
-Track Name
+- Album Artwork  
+- Track Name  
+- Artist  
+- Album  
+- Genre  
+- Popularity  
+- Similarity Score  
+- Spotify Link  
+- 30-second Preview (if available)  
 
-Artist
+---
 
-Album
+## 🖥️ Features
 
-Genre
+- ✔ Content-Based Filtering  
+- ✔ KNN Similarity Model  
+- ✔ Feature Scaling  
+- ✔ Genre Filtering  
+- ✔ Popularity-Based Ranking  
+- ✔ Spotify API Integration  
+- ✔ Optimized Caching  
+- ✔ Production Deployment via Streamlit Cloud  
+- ✔ Clean & Modern UI  
 
-Popularity
+---
 
-Similarity Score
+## 🏗 Tech Stack
 
-Spotify Link
+- Python 3.12  
+- Streamlit  
+- Scikit-learn  
+- Pandas  
+- NumPy  
+- Spotipy  
 
-Preview (if available)
+---
 
-🖥️ Features
+## 📦 Deployment
 
-✔ Content-Based Filtering
-✔ KNN Similarity Model
-✔ Feature Scaling
-✔ Genre Filtering
-✔ Popularity-Based Ranking
-✔ Spotify API Integration
-✔ Optimized Caching
-✔ Production-Ready Deployment
-✔ Clean & Modern UI
+Deployed using:
+
+- GitHub (Version Control)  
+- Streamlit Cloud (Hosting)  
+
+Planned production upgrades:
+
+- Docker containerization  
+- CI/CD with GitHub Actions  
+- AWS deployment (EC2 / ECS)  
+- Authentication layer  
+
+---
+
+## 📌 Future Improvements
+
+- User authentication  
+- Playlist export feature  
+- Advanced filtering (mood, tempo range)  
+- Model retraining pipeline  
+- Docker + AWS production deployment  
+- CI/CD automation  
+
+---
+
+## 👨‍💻 Author
+
+Built by **Manmeet Santre**
+
+---
